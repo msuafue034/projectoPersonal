@@ -1,12 +1,14 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Usuario, Objetivo, ObjetivoUsuario, Registro, Nivel
-from .forms import ObjetivosForm
+from django.shortcuts import render
+from .models import Objetivo, ObjetivoUsuario, Registro, Nivel
+#from .forms import ObjetivosForm
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from datetime import date
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
+def index(request):
+    return render(request, 'fitt/index.html')
 
 ##################* REGISTRO *#################
 class RegistroView(CreateView):

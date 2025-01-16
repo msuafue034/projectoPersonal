@@ -1,10 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.core.exceptions import ValidationError
+from django.contrib.auth.models import Group, Permission
+#from django.core.exceptions import ValidationError
 
 
 ##################* USUARIO *#################
 class Usuario(AbstractUser):
+    usuario = models.CharField(max_length=20, verbose_name="Usuario")
     nombre = models.CharField(max_length=50, verbose_name="Nombre")
     apellidos = models.CharField(max_length=100, verbose_name="Apellidos")
     email = models.EmailField(unique=True, verbose_name="Email")
@@ -14,6 +16,21 @@ class Usuario(AbstractUser):
     nivel = models.PositiveIntegerField(default=1, verbose_name="Nivel")
     racha = models.PositiveIntegerField(default=0, verbose_name="Racha Actual")
     record = models.PositiveIntegerField(default=0, verbose_name="Racha Record")
+
+    groups = models.ManyToManyField(
+        Group,
+        related_name="usuario_set",  # Cambio en related_name
+        blank=True,
+        verbose_name="Grupos"
+    )
+    
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name="usuario_set",  # Cambio en related_name
+        blank=True,
+        verbose_name="Permisos"
+    )
+    
 
     def __str__(self):
         return self.username
