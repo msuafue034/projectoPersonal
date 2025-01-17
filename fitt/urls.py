@@ -6,7 +6,6 @@ urlpatterns = [
     path('',views.index, name='fitt/index' ),
     path('accounts/registro/', RegistroView.as_view(), name="registro"),
     
-    path('objetivos/', ObjetivoListView.as_view(), name='objetivo'),
     path('objetivos/create/', ObjetivoCreateView.as_view(), name='objetivo_create'),
     path('objetivos/<int:pk>/update/', ObjetivoUpdateView.as_view(), name='objetivo_update'),
     path('objetivos/<int:pk>/delete/', ObjetivoDeleteView.as_view(), name='objetivo_delete'),

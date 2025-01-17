@@ -18,11 +18,7 @@ class RegistroView(CreateView):
 
 
 ##################* OBJETIVOS *#################
-class ObjetivoListView(LoginRequiredMixin, ListView):
-    model = Objetivo
-    template_name = "objetivos/list.html"
-    context_object_name = "objetivos"
-    
+
 class ObjetivoCreateView(LoginRequiredMixin, CreateView):
     model = Objetivo
     fields = ["descripcion"]
@@ -44,7 +40,7 @@ class ObjetivoDeleteView(LoginRequiredMixin, DeleteView):
 ##################* OBJETIVOS USUARIO *#################
 class ObjetivoUsuarioListView(LoginRequiredMixin, ListView):
     model = ObjetivoUsuario
-    template_name = "objetivos_usuario/list.html"
+    template_name = "objetivosUsuario/list.html"
     context_object_name = "objetivosUsuario"
 
     def get_queryset(self):
@@ -53,8 +49,8 @@ class ObjetivoUsuarioListView(LoginRequiredMixin, ListView):
 class ObjetivoUsuarioCreateView(LoginRequiredMixin, CreateView):
     model = ObjetivoUsuario
     fields = ["objetivo", "tiempo"]
-    template_name = "objetivos_usuario/create.html"
-    success_url = reverse_lazy("objetivo_usuario_list")
+    template_name = "objetivosUsuario/create.html"
+    success_url = reverse_lazy("objetivosUsuario_list")
 
     def form_valid(self, form):
         form.instance.usuario = self.request.user
@@ -63,13 +59,13 @@ class ObjetivoUsuarioCreateView(LoginRequiredMixin, CreateView):
 class ObjetivoUsuarioUpdateView(LoginRequiredMixin, UpdateView):
     model = ObjetivoUsuario
     fields = ["objetivo", "tiempo"]
-    template_name = "objetivos_usuario/update.html"
-    success_url = reverse_lazy("objetivo_usuario_list")
+    template_name = "objetivosUsuario/update.html"
+    success_url = reverse_lazy("objetivosUsuario_list")
 
 class ObjetivoUsuarioDeleteView(LoginRequiredMixin, DeleteView):
     model = ObjetivoUsuario
-    template_name = "objetivos_usuario/delete.html"
-    success_url = reverse_lazy("objetivo_usuario_list")
+    template_name = "objetivosUsuario/delete.html"
+    success_url = reverse_lazy("objetivosUsuario_list")
 
 
 ##################* ACTIVIDADES *#################

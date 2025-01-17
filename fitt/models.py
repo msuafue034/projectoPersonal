@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import Group, Permission
-#from django.core.exceptions import ValidationError
+# from django.contrib.auth.models import Group, Permission
 
 
 ##################* USUARIO *#################
@@ -16,21 +15,7 @@ class Usuario(AbstractUser):
     nivel = models.PositiveIntegerField(default=1, verbose_name="Nivel")
     racha = models.PositiveIntegerField(default=0, verbose_name="Racha Actual")
     record = models.PositiveIntegerField(default=0, verbose_name="Racha Record")
-
-    groups = models.ManyToManyField(
-        Group,
-        related_name="usuario_set",  # Cambio en related_name
-        blank=True,
-        verbose_name="Grupos"
-    )
-    
-    user_permissions = models.ManyToManyField(
-        Permission,
-        related_name="usuario_set",  # Cambio en related_name
-        blank=True,
-        verbose_name="Permisos"
-    )
-    
+    objetivosMarcados = models.BooleanField(verbose_name="Objetivos marcados")
 
     def __str__(self):
         return self.username
@@ -43,6 +28,7 @@ class Usuario(AbstractUser):
 ##################* OBJETIVOS *#################
 class Objetivo(models.Model):
     descripcion = models.CharField(max_length=100, verbose_name="Descripción")
+    activado = models.BooleanField(verbose_name="Activado")
 
     def __str__(self):
         return self.descripcion
@@ -55,7 +41,7 @@ class ObjetivoUsuario(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name="Usuario")
     objetivo = models.ForeignKey(Objetivo, on_delete=models.CASCADE, verbose_name="Objetivo")
     tiempo = models.PositiveIntegerField(verbose_name="Tiempo")
-
+    
     def __str__(self):
         return f"{self.usuario.username} - {self.objetivo.descripcion}"
 
