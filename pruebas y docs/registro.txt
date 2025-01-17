@@ -69,6 +69,8 @@ _______________________________________________________
 
 ************* LOGIN (base) **************
 
+EJ LOGIN:
+
 {% block login %}
         {% if user.is_authenticated %}
             <p>¡Bienvenido de nuevo, {{ user.username }}!</p>
@@ -80,3 +82,24 @@ _______________________________________________________
             <p>Por favor, <a href="{% url 'login' %}">inicia sesión</a> para acceder a más funciones.</p>
         {% endif %}
     {% endblock %}
+
+
+EJ VIEWS:
+
+class EditarJugador(LoginRequiredMixin, DetailView):
+    model = Jugador
+    template_name = 'dorsales_app/jugador_crud.html'
+    form_class = JugadorForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(*kwargs*)
+        context['action'] = 'update'
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('jugador_detalle', kwargs={'pk': self.object.pk})
+
+
+################## HACER: ##################
+
+-  Login/logout/registro

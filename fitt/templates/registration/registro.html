@@ -2,11 +2,12 @@
 
 {% block content %}
   <div class="container mt-5">
-    <h2>Registro</h2>
+    <h2>Bienvenid@ a F!tt</h2>
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <button type="submit" class="btn btn-primary">Registrarse</button>
+      <p>¿Ya tienes una cuenta? Inicia sesión <a href="{% url 'login' %}">aquí</a>.</p>
     </form>
   </div>
 {% endblock %}

@@ -3,8 +3,8 @@ from . import views
 from .views import *
 
 urlpatterns = [
-    path('',views.index, name='fitt/index' ),
-    path('accounts/registro/', RegistroView.as_view(), name="registro"),
+    path('',views.index, name='fitt/index' ),   # Registro de actividades
+    path('accounts/registro/', RegistroView.as_view(), name="registroUsuario"), # Registro de usuario en la web
     
     path('objetivos/create/', ObjetivoCreateView.as_view(), name='objetivo_create'),
     path('objetivos/<int:pk>/update/', ObjetivoUpdateView.as_view(), name='objetivo_update'),
@@ -15,8 +15,6 @@ urlpatterns = [
     path('objetivos-usuario/<int:pk>/update/', ObjetivoUsuarioUpdateView.as_view(), name='objetivoUsuario_update'),
     path('objetivos-usuario/<int:pk>/delete/', ObjetivoUsuarioDeleteView.as_view(), name='objetivoUsuario_delete'),
     
-    path('registros/', RegistroListView.as_view(), name='registro'),
-    path('registros/create/', RegistroCreateView.as_view(), name='registro_create'),
-    path('registros/<int:pk>/update/', RegistroUpdateView.as_view(), name='registro_update'),
-    path('registros/<int:pk>/delete/', RegistroDeleteView.as_view(), name='registro_delete'),
+    path('registros/<int:pk>/update/', RegistroUpdateView.as_view(), name='registro_update'),   # Registro de actividades (actualizar)
+    path('registros/<int:pk>/delete/', RegistroDeleteView.as_view(), name='registro_delete'),   # Registro de actividades (eliminar)
 ]

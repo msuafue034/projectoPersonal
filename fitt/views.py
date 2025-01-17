@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from .models import Objetivo, ObjetivoUsuario, Registro, Nivel
-#from .forms import ObjetivosForm
+from .models import Objetivo, ObjetivoUsuario, RegistroActividad, Nivel
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
@@ -22,25 +21,25 @@ class RegistroView(CreateView):
 class ObjetivoCreateView(LoginRequiredMixin, CreateView):
     model = Objetivo
     fields = ["descripcion"]
-    template_name = "objetivos/create.html"
+    template_name = "objetivos_create.html"
     success_url = reverse_lazy("objetivo_list")
     
 class ObjetivoUpdateView(LoginRequiredMixin, UpdateView):
     model = Objetivo
     fields = ["descripcion"]
-    template_name = "objetivos/update.html"
+    template_name = "objetivos_update.html"
     success_url = reverse_lazy("objetivo_list")
     
 class ObjetivoDeleteView(LoginRequiredMixin, DeleteView):
     model = Objetivo
-    template_name = "objetivos/delete.html"
+    template_name = "objetivos_delete.html"
     success_url = reverse_lazy("objetivo_list")
 
 
 ##################* OBJETIVOS USUARIO *#################
 class ObjetivoUsuarioListView(LoginRequiredMixin, ListView):
     model = ObjetivoUsuario
-    template_name = "objetivosUsuario/list.html"
+    template_name = "objetivosUsuario_list.html"
     context_object_name = "objetivosUsuario"
 
     def get_queryset(self):
@@ -49,7 +48,7 @@ class ObjetivoUsuarioListView(LoginRequiredMixin, ListView):
 class ObjetivoUsuarioCreateView(LoginRequiredMixin, CreateView):
     model = ObjetivoUsuario
     fields = ["objetivo", "tiempo"]
-    template_name = "objetivosUsuario/create.html"
+    template_name = "objetivosUsuario_create.html"
     success_url = reverse_lazy("objetivosUsuario_list")
 
     def form_valid(self, form):
@@ -59,28 +58,28 @@ class ObjetivoUsuarioCreateView(LoginRequiredMixin, CreateView):
 class ObjetivoUsuarioUpdateView(LoginRequiredMixin, UpdateView):
     model = ObjetivoUsuario
     fields = ["objetivo", "tiempo"]
-    template_name = "objetivosUsuario/update.html"
+    template_name = "objetivosUsuario_update.html"
     success_url = reverse_lazy("objetivosUsuario_list")
 
 class ObjetivoUsuarioDeleteView(LoginRequiredMixin, DeleteView):
     model = ObjetivoUsuario
-    template_name = "objetivosUsuario/delete.html"
+    template_name = "objetivosUsuario_delete.html"
     success_url = reverse_lazy("objetivosUsuario_list")
 
 
 ##################* ACTIVIDADES *#################
 class RegistroListView(LoginRequiredMixin, ListView):
-    model = Registro
-    template_name = "registros/list.html"
+    model = RegistroActividad
+    template_name = "registros_list.html"
     context_object_name = "registros"
 
     def get_queryset(self):
-        return Registro.objects.filter(objetivo_usuario__usuario=self.request.user)
+        return RegistroActividad.objects.filter(objetivo_usuario__usuario=self.request.user)
 
 class RegistroCreateView(LoginRequiredMixin, CreateView):
-    model = Registro
+    model = RegistroActividad
     fields = ["objetivo_usuario", "fecha", "duracion"]
-    template_name = "registros/create.html"
+    template_name = "registros_create.html"
     success_url = reverse_lazy("registro_list")
 
     def form_valid(self, form):
@@ -90,12 +89,12 @@ class RegistroCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 class RegistroUpdateView(LoginRequiredMixin, UpdateView):
-    model = Registro
+    model = RegistroActividad
     fields = ["fecha", "duracion"]
-    template_name = "registros/update.html"
+    template_name = "registros_update.html"
     success_url = reverse_lazy("registro_list")
 
 class RegistroDeleteView(LoginRequiredMixin, DeleteView):
-    model = Registro
-    template_name = "registros/delete.html"
+    model = RegistroActividad
+    template_name = "registros_delete.html"
     success_url = reverse_lazy("registro_list")

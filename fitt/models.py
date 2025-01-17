@@ -1,21 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-# from django.contrib.auth.models import Group, Permission
 
 
 ##################* USUARIO *#################
 class Usuario(AbstractUser):
-    usuario = models.CharField(max_length=20, verbose_name="Usuario")
-    nombre = models.CharField(max_length=50, verbose_name="Nombre")
-    apellidos = models.CharField(max_length=100, verbose_name="Apellidos")
-    email = models.EmailField(unique=True, verbose_name="Email")
+    usuario = models.CharField(max_length=20, verbose_name="Usuario")           #! Se pueden usar los de usuario por defecto, no se necesitan estos datos
+    nombre = models.CharField(max_length=50, verbose_name="Nombre")             #! Se pueden usar los de usuario por defecto, no se necesitan estos datos
+    apellidos = models.CharField(max_length=100, verbose_name="Apellidos")      #! Se pueden usar los de usuario por defecto, no se necesitan estos datos
+    email = models.EmailField(unique=True, verbose_name="Email")                #! Se pueden usar los de usuario por defecto, no se necesitan estos datos
     avatar = models.ImageField(upload_to="avatar/", blank=True, null=True, verbose_name="Foto de Perfil")
     fecha_registro = models.DateField(auto_now_add=True, verbose_name="Fecha de Registro")
     experiencia = models.PositiveIntegerField(default=0, verbose_name="Experiencia")
     nivel = models.PositiveIntegerField(default=1, verbose_name="Nivel")
     racha = models.PositiveIntegerField(default=0, verbose_name="Racha Actual")
     record = models.PositiveIntegerField(default=0, verbose_name="Racha Record")
-    objetivosMarcados = models.BooleanField(verbose_name="Objetivos marcados")
+    objetivos_marcados = models.BooleanField(default=False, verbose_name="Objetivos marcados")
 
     def __str__(self):
         return self.username
@@ -28,7 +27,7 @@ class Usuario(AbstractUser):
 ##################* OBJETIVOS *#################
 class Objetivo(models.Model):
     descripcion = models.CharField(max_length=100, verbose_name="Descripción")
-    activado = models.BooleanField(verbose_name="Activado")
+    activado = models.BooleanField(default=False, verbose_name="Activado")
 
     def __str__(self):
         return self.descripcion
@@ -51,7 +50,7 @@ class ObjetivoUsuario(models.Model):
 
 
 ##################* ACTIVIDADES *#################
-class Registro(models.Model):
+class RegistroActividad(models.Model):
     objetivoUsuario = models.ForeignKey(ObjetivoUsuario, on_delete=models.CASCADE, verbose_name="Objetivo Usuario")
     fecha = models.DateField(unique=True, verbose_name="Fecha")
     duracion = models.PositiveIntegerField(verbose_name="Duración (min)")
@@ -62,7 +61,7 @@ class Registro(models.Model):
     class Meta:
         verbose_name = "Registro"
         verbose_name_plural = "Registros"
-        unique_together = ('objetivoUsuario', 'fecha')
+        unique_together = ('objetivoUsuario', 'fecha')  # Puede repetirse un campo, pero no los dos iguales (se pueden registrar las mismas actividades en fechas diferentes o actividades diferentes en la misma fecha)
         
 
 ##################* NIVEL *#################
