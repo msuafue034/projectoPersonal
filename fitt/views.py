@@ -2,20 +2,37 @@ from django.shortcuts import render
 from .models import Objetivo, ObjetivoUsuario, RegistroActividad, Nivel
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
+from .forms import UsuarioCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def index(request):
     return render(request, 'fitt/index.html')
 
-##################* REGISTRO *#################
+##################* REGISTRO, LOGIN Y LOGOUT *#################
+
+User = get_user_model()     # Para recoger el modelo de usuario definido, no el prederterminado
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['usuario', 'nombre', 'apellidos', 'email', 'password1', 'password2']
 class RegistroView(CreateView):
-    form_class = UserCreationForm
+    form_class = UsuarioCreationForm
     template_name = 'registration/registro.html'
-    success_url = reverse_lazy('index') #? Luego va a ir a login (tiene más sentido), index es para probar
+    success_url = reverse_lazy('login')
 
+class CustomLoginView(LoginView):
+    template_name = 'registration/login.html'
 
+class CustomLogoutView(LogoutView):
+    template_name = 'registration/logged_out.html'
+    next_page = reverse_lazy('login')
+
+    
 ##################* OBJETIVOS *#################
 
 class ObjetivoCreateView(LoginRequiredMixin, CreateView):

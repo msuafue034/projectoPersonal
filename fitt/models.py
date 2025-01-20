@@ -4,10 +4,10 @@ from django.contrib.auth.models import AbstractUser
 
 ##################* USUARIO *#################
 class Usuario(AbstractUser):
-    usuario = models.CharField(max_length=20, verbose_name="Usuario")           #! Se pueden usar los de usuario por defecto, no se necesitan estos datos
-    nombre = models.CharField(max_length=50, verbose_name="Nombre")             #! Se pueden usar los de usuario por defecto, no se necesitan estos datos
-    apellidos = models.CharField(max_length=100, verbose_name="Apellidos")      #! Se pueden usar los de usuario por defecto, no se necesitan estos datos
-    email = models.EmailField(unique=True, verbose_name="Email")                #! Se pueden usar los de usuario por defecto, no se necesitan estos datos
+    usuario = models.CharField(max_length=20, verbose_name="Usuario")   
+    nombre = models.CharField(max_length=50, verbose_name="Nombre") 
+    apellidos = models.CharField(max_length=100, verbose_name="Apellidos")
+    email = models.EmailField(unique=True, verbose_name="Email")
     avatar = models.ImageField(upload_to="avatar/", blank=True, null=True, verbose_name="Foto de Perfil")
     fecha_registro = models.DateField(auto_now_add=True, verbose_name="Fecha de Registro")
     experiencia = models.PositiveIntegerField(default=0, verbose_name="Experiencia")

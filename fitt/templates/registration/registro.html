@@ -1,13 +1,15 @@
 {% extends "fitt/base.html" %}
 
-{% block content %}
-  <div class="container mt-5">
-    <h2>Bienvenid@ a F!tt</h2>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Registrarse</button>
-      <p>¿Ya tienes una cuenta? Inicia sesión <a href="{% url 'login' %}">aquí</a>.</p>
-    </form>
-  </div>
+{% block contenido %}
+<div class="d-flex align-items-center justify-content-center" style="height: 100vh; background-color: #bced09;">
+    <div class="p-5 bg-white rounded shadow">
+        <h2 class="mb-4 text-center">Registro</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success w-100">Registrarse</button>
+        </form>
+        <p class="mt-3 text-center">¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión</a></p>
+    </div>
+</div>
 {% endblock %}

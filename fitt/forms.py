@@ -1,12 +1,12 @@
 from django import forms
 from .models import Usuario, Objetivo, ObjetivoUsuario
-from datetime import date
+from django.contrib.auth.forms import UserCreationForm
 
-class RegistroUsuarioForm(forms.ModelForm):
+class UsuarioCreationForm(UserCreationForm):
     class Meta:
         model = Usuario
-        fields = ['usuario', 'nombre', 'apellidos', 'email']
-
+        fields = ['usuario', 'nombre', 'apellidos', 'email', 'password1', 'password2']
+        
 class ObjetivoForm(forms.ModelForm):
     class Meta:
         model = Objetivo
