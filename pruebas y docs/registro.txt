@@ -102,4 +102,4 @@ class EditarJugador(LoginRequiredMixin, DetailView):
 
 ################## HACER: ##################
 
--  Login/logout/registro
+-  Login/logout/registro --> Ajustar divs más pequeños sin que se desborde el contenido

@@ -3,7 +3,7 @@ from . import views
 from .views import *
 
 urlpatterns = [
-    path('',views.index, name='index'),   # Registro de actividades
+    path('',views.index, name='login'),
     path('accounts/registro/', RegistroView.as_view(), name="registroUsuario"), # Registro de usuario en la web
     path('accounts/login/', CustomLoginView.as_view(), name='login'),
     path('accounts/logout/', CustomLogoutView.as_view(), name='logout'),
