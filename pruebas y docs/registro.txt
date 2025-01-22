@@ -102,4 +102,7 @@ class EditarJugador(LoginRequiredMixin, DetailView):
 
 ################## HACER: ##################
 
--  Login/logout/registro --> Ajustar divs más pequeños sin que se desborde el contenido
+[done] BBDD --> MariaDB (pip install mysql-connector-python)
+
+- Elegir gestión de credenciales e implementarla
+- Registro --> Ajustar divs más pequeños sin que se desborde el contenido

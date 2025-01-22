@@ -76,10 +76,24 @@ WSGI_APPLICATION = 'proyectoPersonal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'mysql.connector.django',     # Motor para mysql-connector-python
+        'NAME': '2DAW_MNSF_BD',                 # Nombre de la base de datos
+        'USER': 'msuafue034',                   # Usuario de la base de datos
+        'PASSWORD': 'msuafue034!',              # Contraseña del usuario
+        'HOST': '192.168.100.5',                    # Dirección del servidor
+        'PORT': '3306',                         # Puerto de la base de datos
+        'OPTIONS': {
+            'autocommit': True,
+        },
     }
 }
 
