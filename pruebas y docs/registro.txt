@@ -100,9 +100,32 @@ class EditarJugador(LoginRequiredMixin, DetailView):
         return reverse_lazy('jugador_detalle', kwargs={'pk': self.object.pk})
 
 
+************* DESPLIEGUE **************
+
+Pasos 1a y 1b hechos en el entorno donde se va a desplegar (no necesarios EN ESTE CASO)
+2b: Dentro de /var/www/ crear una carpeta con el nombre de nuestro proyecto, coger el repositorio y clonar
+    cd /var/www/
+    python3 -m env venv
+    source venv/bin/activate
+    git clone del proyecto
+    pip install requirements.txt
+    deactivate
+
+Apache: configuración guardada en etc, sites-available es literal
+    - Crear archivo con mis iniciales.conf (MNSF.conf)
+    - Añadir todo el contenido gitHub 
+        - (donde pone proyecto1 cambiar por el nombre del proyecto que está en var/www/x)
+        - (donde pone venv cambiar por env)
+
+3b(linea 3 de código ya configurada, no necesario EN ESTE CASO)
+
+
+
 ################## HACER: ##################
 
 [done] BBDD --> MariaDB (pip install mysql-connector-python)
 
 - Elegir gestión de credenciales e implementarla
+- Quitar credenciales de production.py y utilizar variables de entorno (p. ej)
+- Desplegar proyecto con gitHub + info registro.txt
 - Registro --> Ajustar divs más pequeños sin que se desborde el contenido

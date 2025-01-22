@@ -25,10 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-5xxw@+$)zkzjpo2cvwy3jm^v%n-sy_*#!x(ae)-9*%z1)-+g&r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -83,19 +82,19 @@ WSGI_APPLICATION = 'proyectoPersonal.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'mysql.connector.django',     # Motor para mysql-connector-python
-        'NAME': '2DAW_MNSF_BD',                 # Nombre de la base de datos
-        'USER': 'msuafue034',                   # Usuario de la base de datos
-        'PASSWORD': 'msuafue034!',              # Contraseña del usuario
-        'HOST': '192.168.100.5',                    # Dirección del servidor
-        'PORT': '3306',                         # Puerto de la base de datos
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'mysql.connector.django',     # Motor para mysql-connector-python
+#         'NAME': '2DAW_MNSF_BD',                 # Nombre de la base de datos
+#         'USER': 'msuafue034',                   # Usuario de la base de datos
+#         'PASSWORD': 'msuafue034!',              # Contraseña del usuario
+#         'HOST': '192.168.100.5',                # Dirección del servidor
+#         'PORT': '3306',                         # Puerto de la base de datos
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     }
+# }
 
 
 # Password validation
