@@ -100,6 +100,35 @@ class EditarJugador(LoginRequiredMixin, DetailView):
         return reverse_lazy('jugador_detalle', kwargs={'pk': self.object.pk})
 
 
+************* GESTIÓN DE CREDENCIALES **************
+
+Database sin utilizar la gestión de credenciales:
+DATABASES = {
+    'default': {
+        'ENGINE': 'mysql.connector.django',     # Motor para mysql-connector-python
+        'NAME': '2DAW_MNSF_BD',                 # Nombre de la base de datos
+        'USER': 'msuafue034',                   # Usuario de la base de datos
+        'PASSWORD': 'msuafue034!',              # Contraseña del usuario
+        'HOST': '192.168.100.5',                # Dirección del servidor
+        'PORT': '3306',                         # Puerto de la base de datos
+        'OPTIONS': {
+            'autocommit': True,
+        },
+    }
+}
+
+# Database base, una vez recoja los datos de decouple-config sería algo así (los campos sin cubrir se completan con los que recive del .env):
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'mysql.connector.django',  # O 'django.db.backends.mysql' si usas mysqlclient
+#         'NAME': config('2DAW_MNSF_BD'),
+#         'USER': config('msuafue034'),
+#         'PASSWORD': config('msuafue034!'),
+#         'HOST': config('192.168.100.5', default='localhost'),
+#         'PORT': config('3306', default='3306'),
+#     }
+# }
+
 ************* DESPLIEGUE **************
 
 Pasos 1a y 1b hechos en el entorno donde se va a desplegar (no necesarios EN ESTE CASO)
@@ -124,8 +153,10 @@ Apache: configuración guardada en etc, sites-available es literal
 ################## HACER: ##################
 
 [done] BBDD --> MariaDB (pip install mysql-connector-python)
+[done] - Quitar credenciales de production.py y utilizar variables de entorno (p. ej)
 
-- Elegir gestión de credenciales e implementarla
-- Quitar credenciales de production.py y utilizar variables de entorno (p. ej)
-- Desplegar proyecto con gitHub + info registro.txt
-- Registro --> Ajustar divs más pequeños sin que se desborde el contenido
+[falta probar] - Elegir gestión de credenciales e implementarla
+
+[X] - Desplegar proyecto con gitHub + info registro.txt
+
+[no prioritario] - Registro --> Ajustar divs más pequeños sin que se desborde el contenido
