@@ -3,8 +3,9 @@ from django.contrib.auth.models import AbstractUser
 
 
 ##################* USUARIO *#################
+
 class Usuario(AbstractUser):
-    usuario = models.CharField(max_length=20, verbose_name="Usuario")   
+    usuario = models.CharField(max_length=20, unique=True, verbose_name="Usuario")  # Campo único
     nombre = models.CharField(max_length=50, verbose_name="Nombre") 
     apellidos = models.CharField(max_length=100, verbose_name="Apellidos")
     email = models.EmailField(unique=True, verbose_name="Email")
@@ -16,8 +17,11 @@ class Usuario(AbstractUser):
     record = models.PositiveIntegerField(default=0, verbose_name="Racha Record")
     objetivos_marcados = models.BooleanField(default=False, verbose_name="Objetivos marcados")
 
+    USERNAME_FIELD = 'usuario'
+    REQUIRED_FIELDS = ['email']
+
     def __str__(self):
-        return self.username
+        return self.usuario
 
     class Meta:
         verbose_name = "Usuario"

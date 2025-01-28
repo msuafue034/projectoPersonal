@@ -7,9 +7,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from .forms import UsuarioCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
-def index(request):
+@login_required(login_url='/accounts/login/')
+def index(request): 
     return render(request, 'fitt/index.html')
 
 ##################* REGISTRO, LOGIN Y LOGOUT *#################
