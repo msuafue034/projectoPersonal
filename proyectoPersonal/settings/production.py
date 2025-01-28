@@ -3,7 +3,7 @@ from decouple import config
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'noeliasf.ieshm.org']
+ALLOWED_HOSTS = ['localhost', 'noeliasf.ieshm.org']
 
 DATABASES = {
     'default': {
