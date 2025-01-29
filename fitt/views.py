@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 from .forms import UsuarioCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-
+from django.contrib import messages
 
 @login_required(login_url='/accounts/login/')
 def index(request): 
@@ -26,9 +26,13 @@ class RegistroView(CreateView):
     form_class = UsuarioCreationForm
     template_name = 'registration/registro.html'
     success_url = reverse_lazy('login')
-
+    
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'Bienvenido de nuevo a F!tt :)')
+        return super().form_valid(form)
 
 class CustomLogoutView(LogoutView):
     template_name = 'registration/logged_out.html'
