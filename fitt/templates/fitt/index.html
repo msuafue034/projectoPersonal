@@ -29,6 +29,12 @@
             <li class="nav-item">
               <a class="nav-link" href="Logros">Logros</a>
             </li>
+            <li class="nav-item position-absolute bottom-0 start-50 translate-middle-x mb-3">
+              <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
+                {% csrf_token %}
+              </form>
+              <a class="nav-link text-danger" href="#" onclick="document.getElementById('logout-form').submit(); return false;">Cerrar sesión</a>
+            </li>
           </ul>
         </div>
       </nav>

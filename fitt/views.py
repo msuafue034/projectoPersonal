@@ -36,7 +36,10 @@ class CustomLoginView(LoginView):
 
 class CustomLogoutView(LogoutView):
     template_name = 'registration/logged_out.html'
-    next_page = reverse_lazy('login')
+
+    def get_next_page(self):
+        return reverse_lazy('login')
+
 
     
 ##################* OBJETIVOS *#################
