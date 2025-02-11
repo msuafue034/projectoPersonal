@@ -26,6 +26,15 @@ class RegistroView(CreateView):
     form_class = UsuarioCreationForm
     template_name = 'registration/registro.html'
     success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        usuario = form.cleaned_data.get("usuario")
+
+        if User.objects.filter(usuario=usuario).exists():
+            messages.error(self.request, "El nombre de usuario ya está en uso. Por favor, elige otro.")
+            return render(self.request, self.template_name, {"form": form})          # Return al form CON ERROR
+
+        return super().form_valid(form)
     
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'

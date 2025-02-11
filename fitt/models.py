@@ -1,9 +1,26 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 
 ##################* USUARIO *#################
+class UsuarioManager(BaseUserManager):
+    def create_user(self, usuario, email, password=None, **otros):
+        if not usuario:
+            raise ValueError("El usuario debe tener un nombre de usuario.")
+        if not email:
+            raise ValueError("El usuario debe tener un correo electrónico.")
+        email = self.normalize_email(email)
+        user = self.model(usuario=usuario, email=email, **otros)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
 
+    def create_superuser(self, usuario, email, password=None, **otros):
+        otros.setdefault("is_staff", True)
+        otros.setdefault("is_superuser", True)
+
+        return self.create_user(usuario=usuario, email=email, password=password, **otros)
+    
 class Usuario(AbstractUser):
     usuario = models.CharField(max_length=20, unique=True, verbose_name="Usuario")  # Campo único
     nombre = models.CharField(max_length=50, verbose_name="Nombre") 
