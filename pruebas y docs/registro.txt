@@ -164,8 +164,9 @@ MESSATE_TAGS:
 [done] - Errores con usuario/username y creación de superuser
 [done] - Implementación de login, logout y checkout
 [done] - Reload de BBDD
+[done] - Templates --> Comprobar cambios en css para imagen de perfil
 
-[X] - Perfil --> Link en index, urls, views, template
+[X] - Perfil --> Link en index[done], urls[process], views[process]
 [X] - Perfil --> Permitir modificación de ciertos campos de usuario (nombre, apellidos, email)
 [X] - Objetivos --> Comprobar views, template
 [X] - Seguimiento --> Comprobar views, investigar gráficos, template

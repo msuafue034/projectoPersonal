@@ -6,7 +6,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('accounts/registro/', RegistroView.as_view(), name="registroUsuario"), # Registro de usuario en la web
     path('accounts/login/', CustomLoginView.as_view(), name='login'),
-    path('accounts/logout/', CustomLogoutView.as_view(), name='logout'), # Añadir logout o dejar login¿?
+    path('accounts/logout/', CustomLogoutView.as_view(), name='logout'),
     
     path('perfil', views.perfil, name='perfil'),
     

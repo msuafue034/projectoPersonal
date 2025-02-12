@@ -1,3 +1,5 @@
+/*! BASE !*/
+
 .sidebar {
   height: 100vh;
 }
@@ -23,7 +25,7 @@
   fill: none;
   stroke: #4caf50;
   stroke-width: 3.8;
-  stroke-dasharray: 0, 100; /* Para el progreso de la barra */
+  stroke-dasharray: 0, 100;
   transition: stroke-dasharray 0.3s;
 }
 
@@ -67,4 +69,45 @@ form {
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
+}
+
+
+/*! PERFIL !*/
+
+#perfilUsuario {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+#datosUsuario {
+  width: 60%;
+  margin: 0 auto;
+}
+
+#botonesPerfil {
+  display: flex;
+  justify-content: flex-end;
+  width: 60%;
+  margin: 0 auto;
+}
+
+#containerRacha {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 60%;
+  margin: 0 auto;
+}
+
+#containerRacha .col-md-6 {
+  flex-grow: 1;
+  flex-basis: 50%;
+}
+
+@media (max-width: 768px) {
+  #containerRacha {
+      flex-direction: column;
+  }
 }

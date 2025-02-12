@@ -53,7 +53,6 @@ class CustomLogoutView(LogoutView):
         return reverse_lazy('login')
 
 
-
 ##################! PERFIL !#################
 
 @login_required(login_url='/accounts/login/')

@@ -8,69 +8,74 @@
             <div class="text-center p-3">
                 <!-- IMAGEN -->
                 <div class="position-relative">
-                <img src="https://cdn.icon-icons.com/icons2/3298/PNG/512/ui_user_profile_avatar_person_icon_208734.png" alt="Usuario" class="rounded-circle border border-secondary" width="100" height="100">
-                <div class="progress-circle position-absolute top-50 start-50 translate-middle">
-                    <svg viewBox="0 0 36 36" class="circular-chart">
-                    <path class="circle-bg" d="M18 2.0845a15.9155 15.9155 0 1 1 0 31.831a15.9155 15.9155 0 1 1 0-31.831"></path> <!-- Vectorial: M18 2.0845 => moverse a coordinada x=18 y=2.0845 // a => arc to // 15.9155 15.9155 => radios v y h // 0 => en rotación 0 (no rotado) // 11 => más largo y en sentido horario // 0 31.831 => donde acaba el arco // a15.9155 15.9155 0 1 1 0-31.831 => vuelta hacia el inicio para crear un "círculo" cerrado (hacer el arco con grosor) -->
-                    <path class="circle" d="M18 2.0845a15.9155 15.9155 0 1 1 0 31.831a15.9155 15.9155 0 1 1 0-31.831"></path>    <!-- Arco interior que luego se rellenará con js (similar al anterior) -->
-                    </svg>
-                </div>
+                    <img src="https://cdn.icon-icons.com/icons2/3298/PNG/512/ui_user_profile_avatar_person_icon_208734.png" alt="Usuario" class="rounded-circle border border-secondary" width="100" height="100">
+                    <div class="progress-circle position-absolute top-50 start-50 translate-middle">
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg" d="M18 2.0845a15.9155 15.9155 0 1 1 0 31.831a15.9155 15.9155 0 1 1 0-31.831"></path>
+                            <path class="circle" d="M18 2.0845a15.9155 15.9155 0 1 1 0 31.831a15.9155 15.9155 0 1 1 0-31.831"></path>
+                        </svg>
+                    </div>
                 </div>
                 <!-- NIVEL -->
                 <h1 class="h5 mt-3">Nivel 1</h1>
                 <!-- NAVBAR -->
                 <ul class="nav flex-column mt-4">
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'index' %}">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'perfil' %}">Perfil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Seguimiento">Seguimiento</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Logros">Logros</a>
-                </li>
-                <li class="nav-item position-absolute bottom-0 start-50 translate-middle-x mb-3">
-                    <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
-                    {% csrf_token %}
-                    </form>
-                    <a class="nav-link text-danger" href="#" onclick="document.getElementById('logout-form').submit(); return false;">Cerrar sesión</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'index' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'perfil' %}">Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Seguimiento">Seguimiento</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Logros">Logros</a>
+                    </li>
+                    <li class="nav-item position-absolute bottom-0 start-50 translate-middle-x mb-3">
+                        <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+                        <a class="nav-link text-danger" href="#" onclick="document.getElementById('logout-form').submit(); return false;">Cerrar sesión</a>
+                    </li>
                 </ul>
             </div>
-            </nav>
+        </nav>
+
         <!-- PERFIL -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="container py-4" id="perfilUsuario">
-                <!-- DATOS DE USUARIO -->
-                <div class="card p-4 shadow-sm" id="datosUsuario">
-                    <p><strong>Usuario:</strong> {{ usuario.username }}</p>
-                    <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
-                    <p><strong>Apellido(s):</strong> {{ usuario.apellidos }}</p>
-                    <p><strong>Email:</strong> {{ usuario.email }}</p>
-                    <p><strong>Fecha de registro:</strong> {{ usuario.fecha_registro }}</p>
-
+            <div class="container py-4 d-flex flex-column" id="perfilUsuario">
+                <div class="row">
+                    <!-- DATOS DE USUARIO -->
+                    <div class="col-md-8">
+                        <div class="card p-4 shadow-sm w-100" id="datosUsuario">
+                            <p><strong>Usuario:</strong> {{ usuario.username }}</p>
+                            <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
+                            <p><strong>Apellido(s):</strong> {{ usuario.apellidos }}</p>
+                            <p><strong>Email:</strong> {{ usuario.email }}</p>
+                            <p><strong>Fecha de registro:</strong> {{ usuario.fecha_registro }}</p>
+                        </div>
+                    </div>
+                    
                     <!-- BOTONES -->
-                    <div class="d-flex justify-content-end" id="btnDatosUsuario">
+                    <div class="col-md-4 d-flex align-items-center justify-content-end mt-3 mt-md-0">
                         <button class="btn btn-secondary me-2" disabled>Aceptar</button>
-                        <a href="editar_perfil" class="btn btn-primary">Modificar</a>  <!-- Modificar href cuando esté hecho y probado perfil/editar -->
+                        <a href="editar_perfil" class="btn btn-primary">Modificar</a>
                     </div>
                 </div>
 
                 <!-- RACHAS -->
-                <div class="row mt-4">
-                    <div class="col-md-6">
-                        <div class="card p-3 text-center shadow-sm">
+                <div class="row mt-4 d-flex flex-column flex-md-row" id="containerRacha">
+                    <div class="col-md-6 d-flex flex-column">
+                        <div class="card p-3 text-center shadow-sm w-100">
                             <h5 class="text-warning">🔥 Racha actual</h5>
-                            <h3>{{ usuario.racha_actual }} días</h3>
+                            <h3>{{ usuario.racha }} días</h3>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card p-3 text-center shadow-sm">
+                    <div class="col-md-6 d-flex flex-column">
+                        <div class="card p-3 text-center shadow-sm w-100">
                             <h5 class="text-success">👍 Racha más larga</h5>
-                            <h3>{{ usuario.racha_mas_larga }} días</h3>
+                            <h3>{{ usuario.record }} días</h3>
                         </div>
                     </div>
                 </div>
