@@ -8,6 +8,8 @@ urlpatterns = [
     path('accounts/login/', CustomLoginView.as_view(), name='login'),
     path('accounts/logout/', CustomLogoutView.as_view(), name='logout'), # Añadir logout o dejar login¿?
     
+    path('perfil', views.perfil, name='perfil'),
+    
     path('objetivos/create/', ObjetivoCreateView.as_view(), name='objetivo_create'),
     path('objetivos/<int:pk>/update/', ObjetivoUpdateView.as_view(), name='objetivo_update'),
     path('objetivos/<int:pk>/delete/', ObjetivoDeleteView.as_view(), name='objetivo_delete'),

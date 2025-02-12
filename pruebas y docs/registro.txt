@@ -135,10 +135,10 @@ Pasos 1a y 1b hechos en el entorno donde se va a desplegar (no necesarios EN EST
 2b: Dentro de /var/www/ crear una carpeta con el nombre de nuestro proyecto, coger el repositorio y clonar
     cd /var/www/
     python3 -m env venv
-    source venv/bin/activate
+    source env/bin/activate
     git clone del proyecto
     pip install requirements.txt
-    deactivate
+    desactivate
 
 Apache: configuración guardada en etc, sites-available es literal
     - Crear archivo con mis iniciales.conf (MNSF.conf)
@@ -148,20 +148,27 @@ Apache: configuración guardada en etc, sites-available es literal
 
 3b(linea 3 de código ya configurada, no necesario EN ESTE CASO)
 
-
-
 MESSATE_TAGS:
-
 
 <div class="alert {{ message.tags }} alert-dismissible fade show" 
 
-################## HACER: ##################
+
+
+
+################## TO DO: ##################
 
 [done] BBDD --> MariaDB (pip install mysql-connector-python)
 [done] - Quitar credenciales de production.py y utilizar variables de entorno (p. ej)
+[done] - Elegir gestión de credenciales e implementarla
+[done] - Desplegar proyecto con gitHub + info registro.txt
+[done] - Errores con usuario/username y creación de superuser
+[done] - Implementación de login, logout y checkout
+[done] - Reload de BBDD
 
-[falta probar] - Elegir gestión de credenciales e implementarla
-
-[X] - Desplegar proyecto con gitHub + info registro.txt
+[X] - Perfil --> Link en index, urls, views, template
+[X] - Perfil --> Permitir modificación de ciertos campos de usuario (nombre, apellidos, email)
+[X] - Objetivos --> Comprobar views, template
+[X] - Seguimiento --> Comprobar views, investigar gráficos, template
+[X] - Imagen por defecto - usuario.avatar
 
 [no prioritario] - Registro --> Ajustar divs más pequeños sin que se desborde el contenido

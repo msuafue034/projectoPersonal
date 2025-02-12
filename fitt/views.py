@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import Objetivo, ObjetivoUsuario, RegistroActividad, Nivel
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -10,11 +10,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+
+##################! INDEX !#################
+
 @login_required(login_url='/accounts/login/')
 def index(request): 
     return render(request, 'fitt/index.html')
 
-##################* REGISTRO, LOGIN Y LOGOUT *#################
+##################! REGISTRO, LOGIN Y LOGOUT !#################
 
 User = get_user_model()     # Para recoger el modelo de usuario definido, no el prederterminado
 
@@ -50,8 +53,25 @@ class CustomLogoutView(LogoutView):
         return reverse_lazy('login')
 
 
+
+##################! PERFIL !#################
+
+@login_required(login_url='/accounts/login/')
+def perfil(request):
+    usuario = request.user
+
+    if request.method == 'POST':
+        form = UsuarioCreationForm(request.POST, instance=usuario)  # Recoger datos del usuario autenticado
+        if form.is_valid():
+            form.save()
+            return redirect('perfil')
+    else:
+        form = UsuarioCreationForm(instance=usuario)
+
+    return render(request, 'fitt/perfil.html', {'usuario': usuario, 'form': form})
+
     
-##################* OBJETIVOS *#################
+##################! OBJETIVOS !#################
 
 class ObjetivoCreateView(LoginRequiredMixin, CreateView):
     model = Objetivo
@@ -71,7 +91,7 @@ class ObjetivoDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("objetivo_list")
 
 
-##################* OBJETIVOS USUARIO *#################
+##################! OBJETIVOS USUARIO !#################
 class ObjetivoUsuarioListView(LoginRequiredMixin, ListView):
     model = ObjetivoUsuario
     template_name = "objetivosUsuario_list.html"
@@ -102,7 +122,7 @@ class ObjetivoUsuarioDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("objetivosUsuario_list")
 
 
-##################* ACTIVIDADES *#################
+##################! ACTIVIDADES !#################
 class RegistroListView(LoginRequiredMixin, ListView):
     model = RegistroActividad
     template_name = "registros_list.html"
