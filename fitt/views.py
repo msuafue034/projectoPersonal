@@ -21,16 +21,16 @@ User = get_user_model()     # Para recoger el modelo de usuario definido, no el 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['usuario', 'nombre', 'apellidos', 'email', 'password1', 'password2']
+        fields = ['username', 'nombre', 'apellidos', 'email', 'password1', 'password2']
 class RegistroView(CreateView):
     form_class = UsuarioCreationForm
     template_name = 'registration/registro.html'
     success_url = reverse_lazy('login')
 
     def form_valid(self, form):
-        usuario = form.cleaned_data.get("usuario")
+        usuario = form.cleaned_data.get("username")
 
-        if User.objects.filter(usuario=usuario).exists():
+        if User.objects.filter(username=usuario).exists():
             messages.error(self.request, "El nombre de usuario ya está en uso. Por favor, elige otro.")
             return render(self.request, self.template_name, {"form": form})          # Return al form CON ERROR
 

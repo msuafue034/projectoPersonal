@@ -3,26 +3,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 
 ##################* USUARIO *#################
-class UsuarioManager(BaseUserManager):
-    def create_user(self, usuario, email, password=None, **otros):
-        if not usuario:
-            raise ValueError("El usuario debe tener un nombre de usuario.")
-        if not email:
-            raise ValueError("El usuario debe tener un correo electrónico.")
-        email = self.normalize_email(email)
-        user = self.model(usuario=usuario, email=email, **otros)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_superuser(self, usuario, email, password=None, **otros):
-        otros.setdefault("is_staff", True)
-        otros.setdefault("is_superuser", True)
-
-        return self.create_user(usuario=usuario, email=email, password=password, **otros)
-    
 class Usuario(AbstractUser):
-    usuario = models.CharField(max_length=20, unique=True, verbose_name="Usuario")  # Campo único
     nombre = models.CharField(max_length=50, verbose_name="Nombre") 
     apellidos = models.CharField(max_length=100, verbose_name="Apellidos")
     email = models.EmailField(unique=True, verbose_name="Email")
@@ -33,12 +14,10 @@ class Usuario(AbstractUser):
     racha = models.PositiveIntegerField(default=0, verbose_name="Racha Actual")
     record = models.PositiveIntegerField(default=0, verbose_name="Racha Record")
     objetivos_marcados = models.BooleanField(default=False, verbose_name="Objetivos marcados")
-
-    USERNAME_FIELD = 'usuario'
-    REQUIRED_FIELDS = ['email']
+ # UsuarioManager creado para controlar la creación de usuarios en terminal, ya que da errores al crear un superuser para poder entrar en /admin
 
     def __str__(self):
-        return self.usuario
+        return self.username
 
     class Meta:
         verbose_name = "Usuario"

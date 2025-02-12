@@ -17,16 +17,24 @@ class ObjetivoAdmin(admin.ModelAdmin):
 
 @admin.register(ObjetivoUsuario)
 class ObjetivoUsuarioAdmin(admin.ModelAdmin):
-    list_display = ('usuario', 'objetivo', 'tiempo')
-    search_fields = ('usuario__usuario', 'objetivo__descripcion')
+    list_display = ('get_username', 'objetivo', 'tiempo')
+    search_fields = ('usuario__username', 'objetivo__descripcion')
     list_filter = ('usuario',)
 
+    def get_username(self, obj):
+        return obj.usuario.username
+    get_username.short_description = "Usuario"
+    
 @admin.register(RegistroActividad)
 class RegistroActividadAdmin(admin.ModelAdmin):
     list_display = ('objetivoUsuario', 'fecha', 'duracion')
-    search_fields = ('objetivoUsuario__usuario__usuario', 'fecha')
+    search_fields = ('objetivoUsuario__usuario__username', 'fecha')
     list_filter = ('fecha',)
     ordering = ('fecha',)
+    
+    def get_username(self, obj):
+        return obj.objetivoUsuario.usuario.username
+    get_username.short_description = "Usuario"
 
 @admin.register(Nivel)
 class NivelAdmin(admin.ModelAdmin):
