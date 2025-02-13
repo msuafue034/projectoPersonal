@@ -44,10 +44,10 @@
 
         <!-- PERFIL -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="row mt-5 d-flex flex-column justify-content-center" id="perfilUsuario">
+            <div class="row mt-5 d-flex flex-column align-items-center" id="perfilUsuario">
                 <!-- DATOS DE USUARIO -->
-                <div class="col-md-12 col-lg-8">
-                    <div class="card p-3 shadow-sm w-100 mx-auto" id="datosUsuario">
+                <div class="col-md-8 mx-auto">
+                    <div class="card p-3 shadow-sm w-100" id="datosUsuario">
                         <p><strong>Usuario:</strong> {{ usuario.username }}</p>
                         <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
                         <p><strong>Apellido(s):</strong> {{ usuario.apellidos }}</p>
@@ -60,16 +60,16 @@
                         </div>
                     </div>
                 </div>
-
+        
                 <!-- RACHAS -->
-                <div class="row mt-4 d-flex flex-column" id="containerRacha">
-                    <div class="col-md-12 d-flex flex-column">
+                <div class="row mt-4 d-flex flex-column align-items-center" id="containerRacha">
+                    <div class="col-md-8 mx-auto d-flex flex-column">
                         <div class="card p-3 text-center shadow-sm w-100">
                             <h5 class="text-warning">🔥 Racha actual</h5>
                             <h3>{{ usuario.racha }} días</h3>
                         </div>
                     </div>
-                    <div class="col-md-12 d-flex flex-column">
+                    <div class="col-md-8 mx-auto d-flex flex-column mt-3">
                         <div class="card p-3 text-center shadow-sm w-100">
                             <h5 class="text-success">👍 Racha más larga</h5>
                             <h3>{{ usuario.record }} días</h3>
@@ -78,6 +78,7 @@
                 </div>
             </div>
         </main>
+        
     </div>
 </div>
 {% endblock %}
