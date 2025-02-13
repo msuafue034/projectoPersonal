@@ -27,10 +27,10 @@
                         <a class="nav-link active" href="{% url 'perfil' %}">Perfil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Seguimiento">Seguimiento</a>
+                        <a class="nav-link" href="{% url 'seguimiento' %}">Seguimiento</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Logros">Logros</a>
+                        <a class="nav-link" href="{% url 'logros' %}">Logros</a>
                     </li>
                     <li class="nav-item position-absolute bottom-0 start-50 translate-middle-x mb-3">
                         <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
@@ -44,35 +44,32 @@
 
         <!-- PERFIL -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="container py-4 d-flex flex-column" id="perfilUsuario">
-                <div class="row">
-                    <!-- DATOS DE USUARIO -->
-                    <div class="col-md-8">
-                        <div class="card p-4 shadow-sm w-100" id="datosUsuario">
-                            <p><strong>Usuario:</strong> {{ usuario.username }}</p>
-                            <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
-                            <p><strong>Apellido(s):</strong> {{ usuario.apellidos }}</p>
-                            <p><strong>Email:</strong> {{ usuario.email }}</p>
-                            <p><strong>Fecha de registro:</strong> {{ usuario.fecha_registro }}</p>
+            <div class="row mt-5 d-flex flex-column justify-content-center" id="perfilUsuario">
+                <!-- DATOS DE USUARIO -->
+                <div class="col-md-12 col-lg-8">
+                    <div class="card p-3 shadow-sm w-100 mx-auto" id="datosUsuario">
+                        <p><strong>Usuario:</strong> {{ usuario.username }}</p>
+                        <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
+                        <p><strong>Apellido(s):</strong> {{ usuario.apellidos }}</p>
+                        <p><strong>Email:</strong> {{ usuario.email }}</p>
+                        <p><strong>Fecha de registro:</strong> {{ usuario.fecha_registro }}</p>
+                        <!-- BOTONES DEBAJO -->
+                        <div class="d-flex justify-content-end mt-3">
+                            <button class="btn btn-secondary me-2" disabled>Aceptar</button>
+                            <a href="{% url 'perfil_update' usuario.pk %}" class="btn btn-primary">Modificar</a>
                         </div>
-                    </div>
-                    
-                    <!-- BOTONES -->
-                    <div class="col-md-4 d-flex align-items-center justify-content-end mt-3 mt-md-0">
-                        <button class="btn btn-secondary me-2" disabled>Aceptar</button>
-                        <a href="editar_perfil" class="btn btn-primary">Modificar</a>
                     </div>
                 </div>
 
                 <!-- RACHAS -->
-                <div class="row mt-4 d-flex flex-column flex-md-row" id="containerRacha">
-                    <div class="col-md-6 d-flex flex-column">
+                <div class="row mt-4 d-flex flex-column" id="containerRacha">
+                    <div class="col-md-12 d-flex flex-column">
                         <div class="card p-3 text-center shadow-sm w-100">
                             <h5 class="text-warning">🔥 Racha actual</h5>
                             <h3>{{ usuario.racha }} días</h3>
                         </div>
                     </div>
-                    <div class="col-md-6 d-flex flex-column">
+                    <div class="col-md-12 d-flex flex-column">
                         <div class="card p-3 text-center shadow-sm w-100">
                             <h5 class="text-success">👍 Racha más larga</h5>
                             <h3>{{ usuario.record }} días</h3>

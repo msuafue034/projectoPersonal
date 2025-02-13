@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 
-##################* USUARIO *#################
+##################! USUARIO !#################
 class Usuario(AbstractUser):
     nombre = models.CharField(max_length=50, verbose_name="Nombre") 
     apellidos = models.CharField(max_length=100, verbose_name="Apellidos")
@@ -24,7 +24,7 @@ class Usuario(AbstractUser):
         verbose_name_plural = "Usuarios"
 
 
-##################* OBJETIVOS *#################
+##################! OBJETIVOS !#################
 class Objetivo(models.Model):
     descripcion = models.CharField(max_length=100, verbose_name="Descripción")
     activado = models.BooleanField(default=False, verbose_name="Activado")
@@ -49,7 +49,7 @@ class ObjetivoUsuario(models.Model):
         verbose_name_plural = "Objetivos de Usuario"
 
 
-##################* ACTIVIDADES *#################
+##################! ACTIVIDADES !#################
 class RegistroActividad(models.Model):
     objetivoUsuario = models.ForeignKey(ObjetivoUsuario, on_delete=models.CASCADE, verbose_name="Objetivo Usuario")
     fecha = models.DateField(unique=True, verbose_name="Fecha")
@@ -64,7 +64,7 @@ class RegistroActividad(models.Model):
         unique_together = ('objetivoUsuario', 'fecha')  # Puede repetirse un campo, pero no los dos iguales (se pueden registrar las mismas actividades en fechas diferentes o actividades diferentes en la misma fecha)
         
 
-##################* NIVEL *#################
+##################! NIVEL !#################
 class Nivel(models.Model):
     nivel = models.PositiveIntegerField(primary_key=True, verbose_name="Nivel")
     max_puntos = models.PositiveIntegerField(verbose_name="Puntos Máximos")

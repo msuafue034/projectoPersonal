@@ -4,11 +4,15 @@ from .views import *
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('accounts/registro/', RegistroView.as_view(), name="registroUsuario"), # Registro de usuario en la web
+    path('accounts/registro/', RegistroView.as_view(), name="registro"), # Registro de usuario en la web
     path('accounts/login/', CustomLoginView.as_view(), name='login'),
     path('accounts/logout/', CustomLogoutView.as_view(), name='logout'),
     
-    path('perfil', views.perfil, name='perfil'),
+    path('perfil/', views.perfil, name='perfil'),
+    path('perfil/<int:pk>/update/', PerfilUpdateView.as_view(), name='perfil_update'),
+    
+    path('seguimiento/', views.seguimiento, name='seguimiento'),
+    path('logros/', views.logros, name='logros'),
     
     path('objetivos/create/', ObjetivoCreateView.as_view(), name='objetivo_create'),
     path('objetivos/<int:pk>/update/', ObjetivoUpdateView.as_view(), name='objetivo_update'),

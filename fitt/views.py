@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .models import Objetivo, ObjetivoUsuario, RegistroActividad, Nivel
+from .models import Usuario, Objetivo, ObjetivoUsuario, RegistroActividad, Nivel
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
@@ -60,50 +60,75 @@ def perfil(request):
     usuario = request.user
 
     if request.method == 'POST':
-        form = UsuarioCreationForm(request.POST, instance=usuario)  # Recoger datos del usuario autenticado
+        form = UsuarioCreationForm(request.POST, instance=usuario)
         if form.is_valid():
             form.save()
             return redirect('perfil')
     else:
         form = UsuarioCreationForm(instance=usuario)
 
-    return render(request, 'fitt/perfil.html', {'usuario': usuario, 'form': form})
+    return render(request, 'fitt/perfil/perfil.html', {'usuario': usuario, 'form': form})
 
+
+class PerfilUpdateView(LoginRequiredMixin, UpdateView):
+    model = Usuario
+    fields = ['nombre', 'apellidos', 'email']
+    template_name = "fitt/perfil/perfil_update.html"
+    success_url = reverse_lazy('perfil')
+    
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+
+##################! SEGUIMIENTO !#################
+
+@login_required(login_url='/accounts/login/')
+def seguimiento(request): 
+    return render(request, 'fitt/seguimiento/seguimiento.html')
+
+
+##################! LOGROS !#################
+
+@login_required(login_url='/accounts/login/')
+def logros(request): 
+    return render(request, 'fitt/logros/logros.html')
+    
     
 ##################! OBJETIVOS !#################
 
 class ObjetivoCreateView(LoginRequiredMixin, CreateView):
     model = Objetivo
-    fields = ["descripcion"]
-    template_name = "objetivos_create.html"
-    success_url = reverse_lazy("objetivo_list")
+    fields = ['descripcion']
+    template_name = "fitt/objetivos/objetivos_create.html"
+    success_url = reverse_lazy('objetivo_list')
     
 class ObjetivoUpdateView(LoginRequiredMixin, UpdateView):
     model = Objetivo
-    fields = ["descripcion"]
-    template_name = "objetivos_update.html"
-    success_url = reverse_lazy("objetivo_list")
+    fields = ['descripcion']
+    template_name = "fitt/objetivos/objetivos_update.html"
+    success_url = reverse_lazy('objetivo_list')
     
 class ObjetivoDeleteView(LoginRequiredMixin, DeleteView):
     model = Objetivo
-    template_name = "objetivos_delete.html"
-    success_url = reverse_lazy("objetivo_list")
+    template_name = "fitt/objetivos/objetivos_delete.html"
+    success_url = reverse_lazy('objetivo_list')
 
 
 ##################! OBJETIVOS USUARIO !#################
 class ObjetivoUsuarioListView(LoginRequiredMixin, ListView):
     model = ObjetivoUsuario
     template_name = "objetivosUsuario_list.html"
-    context_object_name = "objetivosUsuario"
+    context_object_name = 'objetivosUsuario'
 
     def get_queryset(self):
         return ObjetivoUsuario.objects.filter(usuario=self.request.user)
 
 class ObjetivoUsuarioCreateView(LoginRequiredMixin, CreateView):
     model = ObjetivoUsuario
-    fields = ["objetivo", "tiempo"]
+    fields = ['objetivo', 'tiempo']
     template_name = "objetivosUsuario_create.html"
-    success_url = reverse_lazy("objetivosUsuario_list")
+    success_url = reverse_lazy('objetivosUsuario_list')
 
     def form_valid(self, form):
         form.instance.usuario = self.request.user
@@ -111,7 +136,7 @@ class ObjetivoUsuarioCreateView(LoginRequiredMixin, CreateView):
 
 class ObjetivoUsuarioUpdateView(LoginRequiredMixin, UpdateView):
     model = ObjetivoUsuario
-    fields = ["objetivo", "tiempo"]
+    fields = ['objetivo', 'tiempo']
     template_name = "objetivosUsuario_update.html"
     success_url = reverse_lazy("objetivosUsuario_list")
 

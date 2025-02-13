@@ -1,0 +1,16 @@
+{% extends 'fitt/base.html' %}
+
+{% block contenido %}
+
+    <div class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+        <div class="p-5 bg-white rounded shadow">
+            <h2 class="mb-4 text-center">Editar datos de perfil</h2>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
