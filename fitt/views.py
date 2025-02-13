@@ -58,16 +58,8 @@ class CustomLogoutView(LogoutView):
 @login_required(login_url='/accounts/login/')
 def perfil(request):
     usuario = request.user
-
-    if request.method == 'POST':
-        form = UsuarioCreationForm(request.POST, instance=usuario)
-        if form.is_valid():
-            form.save()
-            return redirect('perfil')
-    else:
-        form = UsuarioCreationForm(instance=usuario)
-
-    return render(request, 'fitt/perfil/perfil.html', {'usuario': usuario, 'form': form})
+    print(usuario.avatar)
+    return render(request, 'fitt/perfil/perfil.html', {'usuario': usuario})
 
 
 class PerfilUpdateView(LoginRequiredMixin, UpdateView):

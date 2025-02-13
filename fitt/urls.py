@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 from .views import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -25,4 +27,4 @@ urlpatterns = [
     
     path('registros/<int:pk>/update/', RegistroUpdateView.as_view(), name='registro_update'),   # Registro de actividades (actualizar)
     path('registros/<int:pk>/delete/', RegistroDeleteView.as_view(), name='registro_delete'),   # Registro de actividades (eliminar)
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -7,14 +7,13 @@ class Usuario(AbstractUser):
     nombre = models.CharField(max_length=50, verbose_name="Nombre") 
     apellidos = models.CharField(max_length=100, verbose_name="Apellidos")
     email = models.EmailField(unique=True, verbose_name="Email")
-    avatar = models.ImageField(upload_to="avatar/", blank=True, null=True, verbose_name="Foto de Perfil")
+    avatar = models.ImageField(upload_to="media/avatar/", blank=True, null=True, verbose_name="Foto de Perfil")
     fecha_registro = models.DateField(auto_now_add=True, verbose_name="Fecha de Registro")
     experiencia = models.PositiveIntegerField(default=0, verbose_name="Experiencia")
     nivel = models.PositiveIntegerField(default=1, verbose_name="Nivel")
     racha = models.PositiveIntegerField(default=0, verbose_name="Racha Actual")
     record = models.PositiveIntegerField(default=0, verbose_name="Racha Record")
     objetivos_marcados = models.BooleanField(default=False, verbose_name="Objetivos marcados")
- # UsuarioManager creado para controlar la creación de usuarios en terminal, ya que da errores al crear un superuser para poder entrar en /admin
 
     def __str__(self):
         return self.username
