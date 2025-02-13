@@ -15,7 +15,9 @@ from django.contrib import messages
 
 @login_required(login_url='/accounts/login/')
 def index(request): 
-    return render(request, 'fitt/index.html')
+    usuario = request.user
+    print(usuario.avatar)
+    return render(request, 'fitt/index.html', {'usuario': usuario})
 
 ##################! REGISTRO, LOGIN Y LOGOUT !#################
 
@@ -77,14 +79,18 @@ class PerfilUpdateView(LoginRequiredMixin, UpdateView):
 
 @login_required(login_url='/accounts/login/')
 def seguimiento(request): 
-    return render(request, 'fitt/seguimiento/seguimiento.html')
+    usuario = request.user
+    print(usuario.avatar)
+    return render(request, 'fitt/seguimiento/seguimiento.html', {'usuario': usuario})
 
 
 ##################! LOGROS !#################
 
 @login_required(login_url='/accounts/login/')
 def logros(request): 
-    return render(request, 'fitt/logros/logros.html')
+    usuario = request.user
+    print(usuario.avatar)
+    return render(request, 'fitt/logros/logros.html', {'usuario': usuario})
     
     
 ##################! OBJETIVOS !#################
