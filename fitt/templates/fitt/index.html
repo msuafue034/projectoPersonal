@@ -52,6 +52,10 @@
               <p class="{{ message.tags }}">{{ message }}</p>
             {% endfor %}
 
+            {% for objetivo in usuario.objetivos.all %}
+              <p> {{objetivo.descipcion}} </p>
+            {% endfor %}
+
             <div class="col-md-4">
               <div class="card p-3 shadow-sm">
                 <h5 class="card-title">Ir al gimnasio</h5>

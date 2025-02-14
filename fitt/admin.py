@@ -1,14 +1,37 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+
 from .models import Usuario, Objetivo, ObjetivoUsuario, RegistroActividad, Nivel
 
 # Register your models here.
 
-@admin.register(Usuario)
-class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ('username', 'nombre', 'apellidos', 'email', 'nivel', 'racha', 'record', 'fecha_registro')  #! Revisar por posible modificación en models
-    search_fields = ('username', 'email', 'nombre', 'apellidos')
-    list_filter = ('nivel', 'fecha_registro')
-    ordering = ('fecha_registro',)
+# @admin.register(Usuario)
+# class UsuarioAdmin(admin.ModelAdmin):   
+    
+#     list_display = ('username', 'nombre', 'apellidos', 'email', 'nivel', 'racha', 'record', 'fecha_registro', 'mostrar_objetivos')  #! Revisar por posible modificación en models
+#     search_fields = ('username', 'email', 'nombre', 'apellidos')
+#     list_filter = ('nivel', 'fecha_registro')
+#     ordering = ('fecha_registro',)
+
+# Register your models here.
+class ObjetivoUsuarioInline(admin.TabularInline):  # También puedes usar StackedInline
+    model = ObjetivoUsuario
+    extra = 1
+class CustomUserAdmin(UserAdmin):
+    model = Usuario
+    
+     # Agregar los nuevos campos a fieldsets (para edición de usuario)
+    fieldsets = UserAdmin.fieldsets + (
+        (None, {'fields': ('nombre', 'apellidos', 'nivel', 'racha', 'record')}),  # Agrega solo los nuevos campos
+    )
+    inlines = [ObjetivoUsuarioInline] 
+
+    # Agregar los nuevos campos a add_fieldsets (para crear usuario)
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        (None, {'fields': ('nombre', 'apellidos', 'nivel', 'racha', 'record')}),
+    )
+    
+admin.site.register(Usuario, CustomUserAdmin)    
 
 @admin.register(Objetivo)
 class ObjetivoAdmin(admin.ModelAdmin):
