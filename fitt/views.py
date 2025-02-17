@@ -1,23 +1,33 @@
 from django.shortcuts import redirect, render
 from .models import Usuario, Objetivo, ObjetivoUsuario, RegistroActividad, Nivel
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from .forms import UsuarioCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 
 ##################! INDEX !#################
 
-@login_required(login_url='/accounts/login/')
-def index(request): 
-    usuario = request.user
-    print(usuario.avatar)
-    return render(request, 'fitt/index.html', {'usuario': usuario})
+# @login_required(login_url='/accounts/login/')
+# def index(request): 
+#     usuario = request.user
+#     print(usuario.avatar)
+#     return render(request, 'fitt/index.html', {'usuario': usuario})
+
+class IndexView(LoginRequiredMixin, TemplateView):
+    template_name = 'fitt/index.html'
+    login_url = '/accounts/login/'
+
+    def get_context_data(self, **otros):
+        contexto = super().get_context_data(**otros)
+        contexto['usuario'] = self.request.user
+        print(self.request.user.avatar)
+        return contexto
 
 ##################! REGISTRO, LOGIN Y LOGOUT !#################
 
@@ -57,11 +67,21 @@ class CustomLogoutView(LogoutView):
 
 ##################! PERFIL !#################
 
-@login_required(login_url='/accounts/login/')
-def perfil(request):
-    usuario = request.user
-    print(usuario.avatar)
-    return render(request, 'fitt/perfil/perfil.html', {'usuario': usuario})
+# @login_required(login_url='/accounts/login/')
+# def perfil(request):
+#     usuario = request.user
+#     print(usuario.avatar)
+#     return render(request, 'fitt/perfil/perfil.html', {'usuario': usuario})
+
+class PerfilView(LoginRequiredMixin, TemplateView):
+    template_name = 'fitt/perfil/perfil.html'
+    login_url = '/accounts/login/'
+
+    def get_context_data(self, **otros):
+        contexto = super().get_context_data(**otros)
+        contexto['usuario'] = self.request.user
+        print(self.request.user.avatar)
+        return contexto
 
 
 class PerfilUpdateView(LoginRequiredMixin, UpdateView):
@@ -77,20 +97,40 @@ class PerfilUpdateView(LoginRequiredMixin, UpdateView):
 
 ##################! SEGUIMIENTO !#################
 
-@login_required(login_url='/accounts/login/')
-def seguimiento(request): 
-    usuario = request.user
-    print(usuario.avatar)
-    return render(request, 'fitt/seguimiento/seguimiento.html', {'usuario': usuario})
+# @login_required(login_url='/accounts/login/')
+# def seguimiento(request): 
+#     usuario = request.user
+#     print(usuario.avatar)
+#     return render(request, 'fitt/seguimiento/seguimiento.html', {'usuario': usuario})
+
+class SeguimientoView(LoginRequiredMixin, TemplateView):
+    template_name = 'fitt/seguimiento/seguimiento.html'
+    login_url = '/accounts/login/'
+
+    def get_context_data(self, **otros):
+        contexto = super().get_context_data(**otros)
+        contexto['usuario'] = self.request.user
+        print(self.request.user.avatar)
+        return contexto
 
 
 ##################! LOGROS !#################
 
-@login_required(login_url='/accounts/login/')
-def logros(request): 
-    usuario = request.user
-    print(usuario.avatar)
-    return render(request, 'fitt/logros/logros.html', {'usuario': usuario})
+# @login_required(login_url='/accounts/login/')
+# def logros(request): 
+#     usuario = request.user
+#     print(usuario.avatar)
+#     return render(request, 'fitt/logros/logros.html', {'usuario': usuario})
+
+class LogrosView(LoginRequiredMixin, TemplateView):
+    template_name = 'fitt/logros/logros.html'
+    login_url = '/accounts/login/'
+
+    def get_context_data(self, **otros):
+        contexto = super().get_context_data(**otros)
+        contexto['usuario'] = self.request.user
+        print(self.request.user.avatar)
+        return contexto
     
     
 ##################! OBJETIVOS !#################

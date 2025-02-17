@@ -13,7 +13,6 @@ class Usuario(AbstractUser):
     nivel = models.PositiveIntegerField(default=1, verbose_name="Nivel")
     racha = models.PositiveIntegerField(default=0, verbose_name="Racha Actual")
     record = models.PositiveIntegerField(default=0, verbose_name="Racha Record")
-    # objetivos_marcados = models.BooleanField(default=False, verbose_name="Objetivos marcados")
     objetivos = models.ManyToManyField('Objetivo', through='ObjetivoUsuario')
 
     def __str__(self):
@@ -27,7 +26,6 @@ class Usuario(AbstractUser):
 ##################! OBJETIVOS !#################
 class Objetivo(models.Model):
     descripcion = models.CharField(max_length=100, verbose_name="Descripción")
-    # activado = models.BooleanField(default=False, verbose_name="Activado")
 
     def __str__(self):
         return self.descripcion
