@@ -165,11 +165,21 @@ MESSATE_TAGS:
 [done] - Implementación de login, logout y checkout
 [done] - Reload de BBDD
 [done] - Templates --> Comprobar cambios en css para imagen de perfil
+[done] - Perfil --> Permitir modificación de ciertos campos de usuario (nombre, apellidos, email)
+[done] - PERFIL --> Link en index, urls, views
+[done] - VIEWS --> Modificar FBV a CBV (index, perfil, seguimiento y logros)
+[done] - TEMPLATES --> Añadir for a template index para crear una tarjeta por actividad seleccionada
 
-[X] - Perfil --> Link en index[done], urls[process], views[process]
-[X] - Perfil --> Permitir modificación de ciertos campos de usuario (nombre, apellidos, email)
+[X] - TEMPLATES --> Automatizar racha y récord
+[?] - TEMPLATES --> Pasar seguimiento a index.html y el index a registro/objetivos (link desde nuevo index)
+[X] - TEMPLATES --> Imagen por defecto + usuario.avatar
+[X] - NUEVO INDEX --> Comprobar views, investigar gráficas, template
+[X] - VIEWS --> clase DefinirObjetivos (similar a compra en tiendaVirtual). Definir funciones get y post
+[X] - MODELS --> ObjetivosUsuario - añadir fecha, seguimiento y registo
+[X] - ObjetivosUsuario --> Añadir filtros para mostrar la información en nuevo index
+[X] - REGISTRO --> Añadir objetivos marcados a un formulario o permitir valor por defecto
+[X] - Reiniciar registros por día
 [X] - Objetivos --> Comprobar views, template
-[X] - Seguimiento --> Comprobar views, investigar gráficos, template
-[X] - Imagen por defecto - usuario.avatar
+[X] - LOGROS - Script para cambiar imagen básica por logro correspondiente
 
 [no prioritario] - Registro --> Ajustar divs más pequeños sin que se desborde el contenido

@@ -7,9 +7,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from .forms import UsuarioCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-# from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.timezone import now
+import json
+# from django.contrib.auth.decorators import login_required
 
 ##################! INDEX !#################
 
@@ -25,9 +28,11 @@ class IndexView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **otros):
         contexto = super().get_context_data(**otros)
-        contexto['usuario'] = self.request.user
-        print(self.request.user.avatar)
+        usuario = self.request.user
+        contexto['usuario'] = usuario
+        contexto['objetivos_usuario'] = ObjetivoUsuario.objects.filter(usuario=usuario).select_related("objetivo")
         return contexto
+    
 
 ##################! REGISTRO, LOGIN Y LOGOUT !#################
 
@@ -50,6 +55,9 @@ class RegistroView(CreateView):
             return render(self.request, self.template_name, {"form": form})          # Return al form CON ERROR
 
         return super().form_valid(form)
+
+    #? AÑADIR OBJETIVOS MARCADOS EN UN FORM AL REGISTRO O PERMITIR VALOR POR DEFECTO
+    
     
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'
@@ -96,7 +104,7 @@ class PerfilUpdateView(LoginRequiredMixin, UpdateView):
 
 
 ##################! SEGUIMIENTO !#################
-
+    
 # @login_required(login_url='/accounts/login/')
 # def seguimiento(request): 
 #     usuario = request.user
@@ -151,7 +159,7 @@ class ObjetivoDeleteView(LoginRequiredMixin, DeleteView):
     model = Objetivo
     template_name = "fitt/objetivos/objetivos_delete.html"
     success_url = reverse_lazy('objetivo_list')
-
+    
 
 ##################! OBJETIVOS USUARIO !#################
 class ObjetivoUsuarioListView(LoginRequiredMixin, ListView):
