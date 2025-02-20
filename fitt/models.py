@@ -13,7 +13,7 @@ class Usuario(AbstractUser):
     nivel = models.PositiveIntegerField(default=1, verbose_name="Nivel")
     racha = models.PositiveIntegerField(default=0, verbose_name="Racha Actual")
     record = models.PositiveIntegerField(default=0, verbose_name="Racha Record")
-    objetivos = models.ManyToManyField('Objetivo', through='ObjetivoUsuario')
+    objetivos = models.ManyToManyField('Objetivo', through='ObjetivoUsuario', blank=True)
 
     def __str__(self):
         return self.username

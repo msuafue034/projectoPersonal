@@ -173,23 +173,36 @@ class ObjetivoUsuarioListView(LoginRequiredMixin, ListView):
 class ObjetivoUsuarioCreateView(LoginRequiredMixin, CreateView):
     model = ObjetivoUsuario
     fields = ['objetivo', 'tiempo']
-    template_name = "objetivosUsuario_create.html"
-    success_url = reverse_lazy('objetivosUsuario_list')
+    template_name = "fitt/objetivos/objetivos_create.html"
+    success_url = reverse_lazy('index')
 
     def form_valid(self, form):
         form.instance.usuario = self.request.user
         return super().form_valid(form)
 
-class ObjetivoUsuarioUpdateView(LoginRequiredMixin, UpdateView):
-    model = ObjetivoUsuario
-    fields = ['objetivo', 'tiempo']
-    template_name = "objetivosUsuario_update.html"
-    success_url = reverse_lazy("objetivosUsuario_list")
+    def get_context_data(self, **otros):
+        contexto = super().get_context_data(**otros)
+        contexto['usuario'] = self.request.user
+        print(self.request.user.avatar)
+        
+        # FILTRO PARA MOSTRAR SOLO LOS OBJETIVOS DISPONIBLES EN EL FORMULARIO
+        asignados = ObjetivoUsuario.objects.filter(usuario = self.request.user).values_list('objetivo', flat=True)  # flat=True --> devuelve una lista de valores en lugar de una lista de tuplas para simplificar los resultados
+        disponibles = Objetivo.objects.exclude(id__in = asignados)
+
+        contexto['objetivos'] = disponibles
+        return contexto
+
 
 class ObjetivoUsuarioDeleteView(LoginRequiredMixin, DeleteView):
     model = ObjetivoUsuario
-    template_name = "objetivosUsuario_delete.html"
-    success_url = reverse_lazy("objetivosUsuario_list")
+    template_name = "fitt/objetivos/objetivos_delete.html"
+    success_url = reverse_lazy('index')
+    
+    def get_context_data(self, **otros):
+        contexto = super().get_context_data(**otros)
+        contexto['usuario'] = self.request.user
+        print(self.request.user.avatar)
+        return contexto
 
 
 ##################! ACTIVIDADES !#################
