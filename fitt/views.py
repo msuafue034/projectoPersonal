@@ -1,17 +1,14 @@
 from django.shortcuts import redirect, render
 from .models import Usuario, Objetivo, ObjetivoUsuario, RegistroActividad, Nivel
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView, View
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
-from .forms import UsuarioCreationForm
+from .forms import RegistroUsuarioForm, UsuarioCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.timezone import now
-import json
 # from django.contrib.auth.decorators import login_required
 
 ##################! INDEX !#################
@@ -104,13 +101,6 @@ class PerfilUpdateView(LoginRequiredMixin, UpdateView):
 
 
 ##################! SEGUIMIENTO !#################
-    
-# @login_required(login_url='/accounts/login/')
-# def seguimiento(request): 
-#     usuario = request.user
-#     print(usuario.avatar)
-#     return render(request, 'fitt/seguimiento/seguimiento.html', {'usuario': usuario})
-
 class SeguimientoView(LoginRequiredMixin, TemplateView):
     template_name = 'fitt/seguimiento/seguimiento.html'
     login_url = '/accounts/login/'
@@ -123,13 +113,6 @@ class SeguimientoView(LoginRequiredMixin, TemplateView):
 
 
 ##################! LOGROS !#################
-
-# @login_required(login_url='/accounts/login/')
-# def logros(request): 
-#     usuario = request.user
-#     print(usuario.avatar)
-#     return render(request, 'fitt/logros/logros.html', {'usuario': usuario})
-
 class LogrosView(LoginRequiredMixin, TemplateView):
     template_name = 'fitt/logros/logros.html'
     login_url = '/accounts/login/'
@@ -159,6 +142,7 @@ class ObjetivoDeleteView(LoginRequiredMixin, DeleteView):
     model = Objetivo
     template_name = "fitt/objetivos/objetivos_delete.html"
     success_url = reverse_lazy('objetivo_list')
+
     
 
 ##################! OBJETIVOS USUARIO !#################
@@ -172,7 +156,7 @@ class ObjetivoUsuarioListView(LoginRequiredMixin, ListView):
 
 class ObjetivoUsuarioCreateView(LoginRequiredMixin, CreateView):
     model = ObjetivoUsuario
-    fields = ['objetivo', 'tiempo']
+    fields = ['objetivo']
     template_name = "fitt/objetivos/objetivos_create.html"
     success_url = reverse_lazy('index')
 
@@ -214,25 +198,27 @@ class RegistroListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return RegistroActividad.objects.filter(objetivo_usuario__usuario=self.request.user)
 
-class RegistroCreateView(LoginRequiredMixin, CreateView):
+class RegistroCreateView(LoginRequiredMixin, View):
     model = RegistroActividad
-    fields = ["objetivo_usuario", "fecha", "duracion"]
-    template_name = "registros_create.html"
-    success_url = reverse_lazy("registro_list")
+    fields = ["objetivoUsuario", "fecha", "duracion"]
+    success_url = reverse_lazy('index')
 
-    def form_valid(self, form):
-        if form.instance.objetivo_usuario.usuario != self.request.user:
-            form.add_error(None, "No puedes agregar registros para otros usuarios.")
-            return self.form_invalid(form)
-        return super().form_valid(form)
+    def post(self, request, *args, **kwargs):
+  
+        form = RegistroUsuarioForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            return JsonResponse({"message": "El registro se ha creado correctamente."}, status=201)
+        return JsonResponse({"error": "Hubo un error al crear el registro. Inténtalo de nuevo."}, status=400)
 
 class RegistroUpdateView(LoginRequiredMixin, UpdateView):
     model = RegistroActividad
     fields = ["fecha", "duracion"]
     template_name = "registros_update.html"
-    success_url = reverse_lazy("registro_list")
+    success_url = reverse_lazy("index")
 
 class RegistroDeleteView(LoginRequiredMixin, DeleteView):
     model = RegistroActividad
     template_name = "registros_delete.html"
-    success_url = reverse_lazy("registro_list")
+    success_url = reverse_lazy("index")

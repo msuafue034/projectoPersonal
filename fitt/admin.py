@@ -40,7 +40,7 @@ class ObjetivoAdmin(admin.ModelAdmin):
 
 @admin.register(ObjetivoUsuario)
 class ObjetivoUsuarioAdmin(admin.ModelAdmin):
-    list_display = ('get_username', 'objetivo', 'tiempo')
+    list_display = ('get_username', 'objetivo')
     search_fields = ('usuario__username', 'objetivo__descripcion')
     list_filter = ('usuario',)
 

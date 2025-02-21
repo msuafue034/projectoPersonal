@@ -21,7 +21,7 @@
               <!-- NAVBAR -->
               <ul class="nav flex-column mt-4">
                   <li class="nav-item">
-                      <a class="nav-link active" href="{% url 'index' %}">Inicio</a>
+                    <a class="nav-link btn btn-outline-info rounded-pill w-75 mx-auto text-center text-white bg-info" href="{% url 'index' %}">Inicio</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link active" href="{% url 'perfil' %}">Perfil</a>
@@ -50,15 +50,21 @@
             <!-- CUADROS DE ACTIVIDADES -->
             {% for objetivo_usuario in objetivos_usuario %}
               <div class="col-md-4 min-width-250">
-                  <div class="card p-3 shadow-sm">
-                      <h5 class="card-title">{{ objetivo_usuario.objetivo.descripcion }}</h5>
-                      <div class="input-group">
-                          <input type="number" class="form-control tiempo-input" placeholder="Minutos" min="0" max="1440" id="tiempo-{{ objetivo_usuario.id }}">
-                          <span class="input-group-text">min</span>
-                          <button class="btn btn-success btn-agregar" data-objetivo="{{ objetivo_usuario.id }}">+</button>
-                      </div>
-                      <a href="{% url 'objetivo_delete' objetivo_usuario.id %}" class="btn btn-outline-danger btn-sm m-3">ELIMINAR</a>
-                  </div>
+                <div class="card p-3 shadow-sm">
+                    <h5 class="card-title">{{ objetivo_usuario.objetivo.descripcion }}</h5>
+                    <form method="POST" action="{% url 'registro_create' %}">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="number" class="form-control tiempo-input" placeholder="Minutos" min="0" max="1440" id="duracion-{{ objetivo_usuario.id }}" name="duracion">
+                            <span class="input-group-text">min</span>
+                            <input type="hidden" name="objetivoUsuario" value="{{ objetivo_usuario.id }}">
+                            <input type="hidden" name="fecha" value="{% now 'Y-m-d' %}">
+                            <button class="btn btn-success btn-agregar" type="submit">+</button>
+                        </div>
+                    </form>
+            
+                    <a href="{% url 'objetivo_delete' objetivo_usuario.id %}" class="btn btn-outline-danger btn-sm m-3">ELIMINAR</a>
+                </div>
               </div>
             {% empty %}
             <div class="card p-3 shadow-sm">

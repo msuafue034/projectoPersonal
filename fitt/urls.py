@@ -20,6 +20,7 @@ urlpatterns = [
     path('objetivos/create/', ObjetivoUsuarioCreateView.as_view(), name='objetivo_create'),
     path('objetivos/<int:pk>/delete/', ObjetivoUsuarioDeleteView.as_view(), name='objetivo_delete'),
     
+    path('registro/create/', RegistroCreateView.as_view(), name='registro_create'),
     path('registros/<int:pk>/update/', RegistroUpdateView.as_view(), name='registro_update'),   # Registro de actividades (actualizar)
     path('registros/<int:pk>/delete/', RegistroDeleteView.as_view(), name='registro_delete'),   # Registro de actividades (eliminar)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-
+from django.utils import timezone
 
 ##################! USUARIO !#################
 class Usuario(AbstractUser):
@@ -34,10 +34,11 @@ class Objetivo(models.Model):
         verbose_name = "Objetivo"
         verbose_name_plural = "Objetivos"
 
+
+##################! OBJETIVOS USUARIO !#################
 class ObjetivoUsuario(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name="Usuario")
     objetivo = models.ForeignKey(Objetivo, on_delete=models.CASCADE, verbose_name="Objetivo")
-    tiempo = models.PositiveIntegerField(verbose_name="Tiempo")
     
     def __str__(self):
         return f"{self.usuario.username} - {self.objetivo.descripcion}"
@@ -50,11 +51,11 @@ class ObjetivoUsuario(models.Model):
 ##################! ACTIVIDADES !#################
 class RegistroActividad(models.Model):
     objetivoUsuario = models.ForeignKey(ObjetivoUsuario, on_delete=models.CASCADE, verbose_name="Objetivo Usuario")
-    fecha = models.DateField(unique=True, verbose_name="Fecha")
+    fecha = models.DateField(default=timezone.now, verbose_name="Fecha")
     duracion = models.PositiveIntegerField(verbose_name="Duración (min)")
 
     def __str__(self):
-        return f"{self.objetivoUsuario.usuario.username} - {self.fecha}"
+        return f"Registro {self.id} - {self.objetivoUsuario}"
 
     class Meta:
         verbose_name = "Registro"
